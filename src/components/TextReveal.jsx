@@ -1,6 +1,6 @@
 'use client'
 import  gsap, { ScrollTrigger ,SplitText, useGSAP } from "@/libs/gsap"
-import { forwardRef, useRef } from "react";
+import { forwardRef, useImperativeHandle, useRef } from "react";
 
 const TextReveal = forwardRef(
   (
@@ -14,12 +14,19 @@ const TextReveal = forwardRef(
       stagger = 0.085,
       delay = 0,
       ease = "power3.out",
+      
     },
     ref
   ) => {
     const wrapperRef = useRef(null);
     const splitRef = useRef(null)
     const tlRef = useRef(null);
+
+    useImperativeHandle(ref,()=>({
+      play: () =>  tlRef.current?.play(),
+      reverse: () => tlRef.current?.reverse(),
+      reset: () => tlRef.current?.pause(0),
+  }))
 
 
         useGSAP(() => {
@@ -31,9 +38,11 @@ const TextReveal = forwardRef(
             const elements = splitRef.current[splitBy]
             gsap.set(elements,{
                 yPercent: 110,
+
             })
                 tlRef.current = gsap.timeline({
-                    default: {delay, paused : true}
+                  paused: true,
+                    defaults: { delay },
                 });
                 tlRef.current.to(elements, {
                     yPercent: 0,
@@ -65,7 +74,7 @@ const TextReveal = forwardRef(
 
         }, {
             scope: wrapperRef,
-            dependencies: [ splitBy, trigger, stagger, duration]
+            dependencies: [ splitBy, trigger, delay, ease, stagger, duration, scrollStart]
         })
 
 

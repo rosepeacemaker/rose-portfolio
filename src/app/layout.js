@@ -1,23 +1,18 @@
-
 import SmoothScroller from "@/components/SmoothScroller";
 import "./globals.css";
-
-
 
 export const metadata = {
   title: "Rose-Portfolio",
   description: "My portfolio project",
 };
 
-export default function RootLayout({children }) {
-
+export default function RootLayout({ children }) {
   return (
-    <html
-      lang="en"
-      className={`h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col"> 
-       <SmoothScroller>{children}</SmoothScroller>
+    <html lang="en" className="h-full antialiased">
+      <body className="min-h-full flex flex-col">
+        <SmoothScroller>
+          {children}
+        </SmoothScroller>
       </body>
     </html>
   );

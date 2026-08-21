@@ -9,3 +9,5 @@ const SmoothScroller = ({ children }) => {
 };
 
 export default SmoothScroller;
+
+
