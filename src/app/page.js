@@ -1,23 +1,16 @@
-import { useRef } from 'react'
-import TextReveal from '@/components/TextReveal'
+"use client"
+import InfiniteCarousal from "@/components/InfiniteCarousal";
+import TextReveal from "@/components/TextReveal";
+import {projects } from "../data/projects"
+import { useRef } from "react";
 
 
-const Home = () => {
+export default function Home() {
+  
+
   return (
-    <main className='h-[300vh] bg-black w-full'>
-      <div
-
-       className='h-128px w-192px bg-teal-800'>
-      </div>
-      <TextReveal
-      ref={triggerRef}
-       splitBy="chars"
-       trigger="scroll" 
-        className='text-[5rem] text-white'>
-        Hello Everyone
-      </TextReveal>
+    <main className="h-screen flex items-start w-full bg-amber-950">
+      <InfiniteCarousal projects={projects} />
     </main>
-  )
+  );
 }
-
-export default Home

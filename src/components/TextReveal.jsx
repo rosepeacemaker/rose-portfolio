@@ -1,6 +1,7 @@
-'use client'
+"use client";
 import  gsap, { ScrollTrigger ,SplitText, useGSAP } from "@/libs/gsap"
-import { forwardRef, useImperativeHandle, useRef } from "react";
+import { forwardRef, useImperativeHandle , useRef} from "react";
+
 
 const TextReveal = forwardRef(
   (
