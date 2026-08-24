@@ -1,58 +1,66 @@
-"use client"
-import { useEffect ,useRef } from "react";
+"use client";
+
+import { useEffect, useRef } from "react";
 import CarousalCard from "./CarousalCard";
 import gsap from "@/libs/gsap";
 
-
-
-const CARD_W = 200;
-const CARD_H = 200;
+const CARD_W = 400;
+const CARD_H = 520;
 const SCALE = 1.35;
-const CARD_GAP = 1.35;
-
-const DURATION = 25;
-
+const CARD_GAP = 27;
+const DURATION = 5;
 const TRACK_H = CARD_H * SCALE;
 
+const InfiniteCarousel = ({ projects }) => {
+  const trackRef = useRef(null);
+  const tweenRef = useRef(null);
 
-const InfiniteCarousal = ({ projects }) => {
+  useEffect(() => {
+    if (!projects?.length || !trackRef.current) return;
 
-const trackRef = useRef(null);
-const tweenRef = useRef(null)
+    const singleWidth = projects.length * (CARD_W + CARD_GAP);
 
+    tweenRef.current = gsap.to(trackRef.current, {
+      x: -singleWidth,
+      ease: "none",
+      duration: DURATION,
+      repeat: -1,
+    });
 
-useEffect(()=>{
-    const singleWidth = projects.length *(CARD_H + CARD_GAP);
-    
-    tweenRef.current = gsap.to(trackRef.current,{
-        x: -singleWidth,
-        ease:"none",
-        duration: DURATION,
-        repeat: -1,
-    })
-    return()=> tweenRef.current?.kill()
-},[projects])
+    return () => {
+      tweenRef.current?.kill();
+    };
+  }, [projects]);
 
-
-
-const doubled = [...projects,  ...projects]
+  const doubled = [...projects, ...projects];
 
   return (
-    <div style={{
-        padding:`${TRACK_H * 0.2}px 0 24px`
-    }}
-    className="overflow-hidden">
-        <div style={{gap:`${CARD_GAP}px`,width: 'max-content', height: `${TRACK_H}px`}}
-        ref={trackRef} className="track flex items-center">
-            {doubled.map((projects, idx)=>{
-                <CarousalCard key={idx} projects={projects} 
-                onHoverStart={()=> tweenRef.current?.pause()} 
-                onHoverEnd={()=> tweenRef.current?.play()} 
-                />
-            })}
-        </div>
+    <div
+      style={{
+        padding: `${TRACK_H * 0.9}px 0 24px`,
+      }}
+      className="overflow-hidden"
+    >
+      <div
+        ref={trackRef}
+        style={{
+          gap: `${CARD_GAP}px`,
+          width: "max-content",
+          height: `${TRACK_H}px`,
+        }}
+        className="track flex items-center"
+      >
+        {doubled.map((projects, idx) => (
+          <CarousalCard
+            key={`${projects.slug}-${idx}`}
+            projects={projects}
+            onHoverStart={() => tweenRef.current?.pause()}
+            onHoverEnd={() => tweenRef.current?.play()}
+          />
+        ))}
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default InfiniteCarousal
+export default InfiniteCarousel;

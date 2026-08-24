@@ -3,14 +3,14 @@ import gsap from "@/libs/gsap";
 import TextReveal from "./TextReveal";
 import { useRef } from "react";
 import Image from "next/image";
-// import useViewTransition from "@/hooks/UseViewTransition";
-import { projects } from "@/data/projects";
+import useViewTransition from "@/hooks/UseViewTransition";
+
 
 const CARD_W = 400;
 const CARD_H = 520;
 const SCALE = 1.35;
 
-const CarouselCard = ({ project, onHoverStart, onHoverEnd }) => {
+const CarousalCard = ({ projects, onHoverStart, onHoverEnd }) => {
   console.log("PROJECTS:", projects)
   const cardRef = useRef(null);
   const imgRef = useRef(null);
@@ -58,11 +58,11 @@ const CarouselCard = ({ project, onHoverStart, onHoverEnd }) => {
     titleRef.current?.reverse();
   };
 
-  // const { navigateTo } = useViewTransition();
+  const { navigateTo } = useViewTransition();
 
-  // const handleClick = () => {
-  //   navigateTo(`/project/${project.slug}`);
-  // };
+  const handleClick = () => {
+    navigateTo(`/projects/${projects.slug}`);
+  };
 
   return (
     <div
@@ -91,7 +91,7 @@ const CarouselCard = ({ project, onHoverStart, onHoverEnd }) => {
           trigger="manual"
           splitBy="chars"
         >
-          <h3 className="text-[1.2rem] text-[#010101]">{project.number}</h3>
+          <h3 className="text-[1.2rem] text-[#010101]">{projects.number}</h3>
         </TextReveal>
         <TextReveal
           ref={titleRef}
@@ -99,21 +99,21 @@ const CarouselCard = ({ project, onHoverStart, onHoverEnd }) => {
           trigger="manual"
           splitBy="words"
         >
-          <h3 className="text-[1.2rem] text-[#010101]">{project.title}</h3>
+          <h3 className="text-[1.2rem] text-[#010101]">{projects.title}</h3>
         </TextReveal>
       </div>
 
-      <div className="imageDiv absolute h-full w-full overflow-hidden ">
+      <div className="imageDiv absolute h-full w-full overflow-hidden">
          <div className="relative h-full w-full">
   <Image
     style={{
       transformOrigin: "center center",
       userSelect: "none",
     }}
-    className="scale-[1.6] object-cover"
+    className="scale-[1.2] object-cover"
     ref={imgRef}
-    src={project.coverImage}
-    alt={project.title}
+    src={projects.coverImage}
+    alt={projects.title}
     fill
   />
 </div>
@@ -123,4 +123,4 @@ const CarouselCard = ({ project, onHoverStart, onHoverEnd }) => {
   );
 };
 
-export default CarouselCard;
+export default CarousalCard;
