@@ -11,7 +11,7 @@ const nextProject = projects[(index + 1) % projects.length]
 
     return (
         <>
-            <ProjectPage project={project} />
+            <ProjectPage project={project}  nextProject={nextProject}/>
         </>
     );
 }

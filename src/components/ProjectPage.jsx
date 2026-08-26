@@ -2,7 +2,7 @@
 import { useRef } from "react";
 import TextReveal from "./TextReveal";
 import gsap, { ScrollTrigger, useGSAP } from "@/libs/gsap";
-import useViewTransition from "@/hooks/useViewTransition";
+import useViewTransition from "@/hooks/UseViewTransition";
 import Image from "next/image";
 
 const ProjectPage = ({ project, nextProject }) => {
@@ -66,15 +66,16 @@ const ProjectPage = ({ project, nextProject }) => {
               </TextReveal>
             </div>
             <div className="secondSegment h-[85%] w-[30%] ">
-              <div className="imageDiv overflow-hidden h-full w-full ">
-                <image
+              <div className="imageDiv overflow-hidden h-full w-full relative">
+                <Image
+                  className="h-full scale-[1.7] w-full object-cover"
                   ref={imageRef}
                   style={{
                     clipPath: "inset(0 0 100% 0)",
                   }}
-                  className="h-full scale-[1.7] w-full object-cover"
                   src={project.coverImage}
-                  alt=""
+                  alt="project image"
+                  fill
                 />
               </div>
             </div>
@@ -111,7 +112,7 @@ const ProjectPage = ({ project, nextProject }) => {
                 style={{ transformOrigin: "bottom left" }}
                 className="sectionContainer rotate-[30deg] h-full w-full "
               >
-                <Image className="h-full w-full object-cover" src={elem} alt="" />
+                <Image className="h-full w-full object-cover" src={elem} alt="" fill />
               </div>
             </section>
           );

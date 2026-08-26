@@ -8,7 +8,7 @@ const CARD_W = 400;
 const CARD_H = 520;
 const SCALE = 1.35;
 const CARD_GAP = 27;
-const DURATION = 5;
+const DURATION = 10;
 const TRACK_H = CARD_H * SCALE;
 
 const InfiniteCarousel = ({ projects }) => {
